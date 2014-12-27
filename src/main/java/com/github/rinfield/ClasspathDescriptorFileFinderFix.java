@@ -10,7 +10,7 @@ import java.util.List;
 import org.glassfish.hk2.utilities.ClasspathDescriptorFileFinder;
 
 public class ClasspathDescriptorFileFinderFix extends
-ClasspathDescriptorFileFinder {
+    ClasspathDescriptorFileFinder {
 
     @Override
     public List<InputStream> findDescriptorFiles() throws IOException {

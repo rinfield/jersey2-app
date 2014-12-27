@@ -40,7 +40,7 @@ public class ServiceInjectResource {
         final List<String> res = Arrays
             .asList(perLookupService, perThreadService, requestScopedService,
                 singletonService).stream().map(Objects::toString)
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
 
         locator.getService(PerLookupService.class);
         locator.getService(PerThreadService.class);
