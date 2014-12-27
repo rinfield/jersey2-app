@@ -1,15 +1,14 @@
-package com.github.rinfield.service;
+package com.github.rinfield.app.service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Singleton;
 
-import org.glassfish.jersey.process.internal.RequestScoped;
 import org.jvnet.hk2.annotations.Service;
 
 @Service
-@RequestScoped
-public class RequestScopedService {
-
+@Singleton
+public class SingletonService {
     @PostConstruct
     public void postConstruct() {
         System.out.println("@PostConstruct: " + this);

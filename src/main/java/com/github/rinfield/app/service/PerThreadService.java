@@ -1,4 +1,4 @@
-package com.github.rinfield.service;
+package com.github.rinfield.app.service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

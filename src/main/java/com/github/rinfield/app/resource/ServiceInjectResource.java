@@ -14,10 +14,10 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.hk2.api.ServiceLocator;
 
-import com.github.rinfield.service.PerLookupService;
-import com.github.rinfield.service.PerThreadService;
-import com.github.rinfield.service.RequestScopedService;
-import com.github.rinfield.service.SingletonService;
+import com.github.rinfield.app.service.PerLookupService;
+import com.github.rinfield.app.service.PerThreadService;
+import com.github.rinfield.app.service.RequestScopedService;
+import com.github.rinfield.app.service.SingletonService;
 
 @Path("/inject")
 @Produces("application/json")
