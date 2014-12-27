@@ -1,4 +1,4 @@
-package com.github.rinfield.ex_mapper;
+package com.github.rinfield.provider;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
