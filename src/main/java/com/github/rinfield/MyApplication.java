@@ -8,6 +8,7 @@ import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.filter.HttpMethodOverrideFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -37,6 +38,9 @@ public class MyApplication extends ResourceConfig {
         // Support for HTTP method override via query parameter
         register(new HttpMethodOverrideFilter(
             HttpMethodOverrideFilter.Source.QUERY));
+        // Support for javax.annotation.security annotations
+        register(RolesAllowedDynamicFeature.class);
+
         dynamicConf.getPopulator().populate(
             new ClasspathDescriptorFileFinderFix());
     }
