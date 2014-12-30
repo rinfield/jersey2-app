@@ -35,10 +35,11 @@ public class ApiListingResource extends AbstractResource {
             .flatMap(
                 rs -> rs.getResource().stream()
                     .flatMap(r -> EndPoint.from(rs.getBase(), r)));
-        return Response.ok(endPoints.collect(Collectors.toList())).build();
+        return Response.ok(endPoints.sorted().collect(Collectors.toList()))
+            .build();
     }
 
-    public static class EndPoint {
+    public static class EndPoint implements Comparable<EndPoint> {
         public final String url;
         public final List<String> methods;
 
@@ -64,6 +65,11 @@ public class ApiListingResource extends AbstractResource {
             this.url = url;
             this.methods = Collections
                 .unmodifiableList(new ArrayList<>(methods));
+        }
+
+        @Override
+        public int compareTo(final EndPoint that) {
+            return url.compareTo(that.url);
         }
     }
 }
