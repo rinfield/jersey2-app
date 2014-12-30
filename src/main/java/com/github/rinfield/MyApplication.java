@@ -8,20 +8,25 @@ import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.filter.HttpMethodOverrideFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 @ApplicationPath("")
 public class MyApplication extends ResourceConfig {
 
+    private static final Logger log = LoggerFactory
+        .getLogger(MyApplication.class);
+
     @Inject
     public MyApplication(final DynamicConfigurationService dynamicConf)
         throws Exception {
-
-        setApplicationName(MyApplication.class.getSimpleName());
-
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
 
+        log.info("configuring application");
+
+        setApplicationName(MyApplication.class.getSimpleName());
         packages(true, MyApplication.class.getPackage().toString());
 
         // for debug
