@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.hk2.api.ActiveDescriptor;
@@ -17,9 +16,8 @@ import org.glassfish.hk2.api.DescriptorVisibility;
 import org.glassfish.hk2.api.ServiceHandle;
 import org.glassfish.hk2.api.ServiceLocator;
 
-@Path("/hk2")
-@Produces("application/json")
-public class HK2StatusResource {
+@Path("hk2")
+public class HK2StatusResource extends AbstractResource {
 
     @Inject
     private ServiceLocator locator;

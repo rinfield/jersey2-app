@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 @Path("method")
-public class MethodResource {
+public class MethodResource extends AbstractResource {
 
     @GET
     public Response get() {

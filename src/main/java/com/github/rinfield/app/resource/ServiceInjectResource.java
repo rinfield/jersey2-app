@@ -9,10 +9,8 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.hk2.api.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,15 +19,11 @@ import com.github.rinfield.app.service.PerThreadService;
 import com.github.rinfield.app.service.RequestScopedService;
 import com.github.rinfield.app.service.SingletonService;
 
-@Path("/inject")
-@Produces("application/json")
-public class ServiceInjectResource {
+@Path("inject")
+public class ServiceInjectResource extends AbstractResource {
 
     private static final Logger log = LoggerFactory
         .getLogger(ServiceInjectResource.class);
-
-    @Inject
-    private ServiceLocator locator;
 
     @Inject
     private PerLookupService perLookupService;
