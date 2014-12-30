@@ -42,10 +42,10 @@ public class ServiceInjectResource {
                 singletonService).stream().map(Objects::toString)
             .collect(Collectors.toList());
 
-        locator.getService(PerLookupService.class);
-        locator.getService(PerThreadService.class);
-        locator.getService(RequestScopedService.class);
-        locator.getService(SingletonService.class);
+        System.out.println(locator.getService(PerLookupService.class));
+        System.out.println(locator.getService(PerThreadService.class));
+        System.out.println(locator.getService(RequestScopedService.class));
+        System.out.println(locator.getService(SingletonService.class));
 
         return Response.ok(res).build();
     }
