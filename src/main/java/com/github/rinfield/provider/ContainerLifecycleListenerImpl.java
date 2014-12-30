@@ -4,23 +4,28 @@ import javax.ws.rs.ext.Provider;
 
 import org.glassfish.jersey.server.spi.Container;
 import org.glassfish.jersey.server.spi.ContainerLifecycleListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Provider
 public class ContainerLifecycleListenerImpl implements
     ContainerLifecycleListener {
 
+    private static final Logger log = LoggerFactory
+        .getLogger(ContainerLifecycleListenerImpl.class);
+
     @Override
     public void onStartup(final Container container) {
-        System.out.println("onStartup: " + this);
+        log.info("onStartup: " + this);
     }
 
     @Override
     public void onReload(final Container container) {
-        System.out.println("onReload: " + this);
+        log.info("onReload: " + this);
     }
 
     @Override
     public void onShutdown(final Container container) {
-        System.out.println("onShutdown: " + this);
+        log.info("onShutdown: " + this);
     }
 }

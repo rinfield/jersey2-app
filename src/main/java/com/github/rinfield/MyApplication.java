@@ -6,6 +6,7 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.hk2.api.DynamicConfigurationService;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.HttpMethodOverrideFilter;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 @ApplicationPath("")
 public class MyApplication extends ResourceConfig {
@@ -13,6 +14,10 @@ public class MyApplication extends ResourceConfig {
     @Inject
     public MyApplication(final DynamicConfigurationService dynamicConf)
         throws Exception {
+
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
+
         packages(true, MyApplication.class.getPackage().toString());
         // Support for HTTP method override via query parameter
         register(new HttpMethodOverrideFilter(

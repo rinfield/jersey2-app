@@ -5,17 +5,23 @@ import javax.annotation.PreDestroy;
 
 import org.glassfish.hk2.api.PerThread;
 import org.jvnet.hk2.annotations.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @PerThread
 public class PerThreadService {
+
+    private static final Logger log = LoggerFactory
+        .getLogger(PerThreadService.class);
+
     @PostConstruct
     public void postConstruct() {
-        System.out.println("@PostConstruct: " + this);
+        log.info("@PostConstruct: " + this);
     }
 
     @PreDestroy
     public void preDestroy() {
-        System.out.println("@PreDestroy: " + this);
+        log.info("@PreDestroy: " + this);
     }
 }

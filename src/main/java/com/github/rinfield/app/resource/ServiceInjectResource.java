@@ -13,6 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.hk2.api.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.rinfield.app.service.PerLookupService;
 import com.github.rinfield.app.service.PerThreadService;
@@ -22,6 +24,9 @@ import com.github.rinfield.app.service.SingletonService;
 @Path("/inject")
 @Produces("application/json")
 public class ServiceInjectResource {
+
+    private static final Logger log = LoggerFactory
+        .getLogger(ServiceInjectResource.class);
 
     @Inject
     private ServiceLocator locator;
@@ -42,16 +47,16 @@ public class ServiceInjectResource {
                 singletonService).stream().map(Objects::toString)
             .collect(Collectors.toList());
 
-        System.out.println(locator.getService(PerLookupService.class));
-        System.out.println(locator.getService(PerThreadService.class));
-        System.out.println(locator.getService(RequestScopedService.class));
-        System.out.println(locator.getService(SingletonService.class));
+        log.info(locator.getService(PerLookupService.class).toString());
+        log.info(locator.getService(PerThreadService.class).toString());
+        log.info(locator.getService(RequestScopedService.class).toString());
+        log.info(locator.getService(SingletonService.class).toString());
 
         return Response.ok(res).build();
     }
 
     @PreDestroy
     public void separator() {
-        System.out.println("=========================================");
+        log.info("=========================================");
     }
 }
