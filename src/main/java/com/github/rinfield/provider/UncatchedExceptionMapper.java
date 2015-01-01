@@ -9,18 +9,18 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.github.rinfield.app.log.AppLogger;
+import com.github.rinfield.app.log.AppLogs;
 
 @Provider
 public class UncatchedExceptionMapper implements ExceptionMapper<Exception> {
 
-    private static final Logger log = LoggerFactory
-        .getLogger(UncatchedExceptionMapper.class);
+    private static final AppLogger log = AppLogger
+        .of(UncatchedExceptionMapper.class);
 
     @Override
     public Response toResponse(final Exception handlingEx) {
-        log.error("uncatched exception", handlingEx);
+        log.write(AppLogs.UNCATCHED_EXCEPTION, handlingEx);
         handlingEx.printStackTrace();
         String responseInfo = handlingEx.getMessage();
         try (final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();

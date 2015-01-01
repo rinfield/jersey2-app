@@ -9,15 +9,15 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.filter.HttpMethodOverrideFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
+
+import com.github.rinfield.app.log.AppLogger;
+import com.github.rinfield.app.log.AppLogs;
 
 @ApplicationPath("")
 public class MyApplication extends ResourceConfig {
 
-    private static final Logger log = LoggerFactory
-        .getLogger(MyApplication.class);
+    private static final AppLogger log = AppLogger.of(MyApplication.class);
 
     @Inject
     public MyApplication(final DynamicConfigurationService dynamicConf)
@@ -25,7 +25,7 @@ public class MyApplication extends ResourceConfig {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
 
-        log.info("configuring application");
+        log.write(AppLogs.APPLICATION_BEGIN);
 
         setApplicationName(MyApplication.class.getSimpleName());
         packages(true, MyApplication.class.getPackage().toString());

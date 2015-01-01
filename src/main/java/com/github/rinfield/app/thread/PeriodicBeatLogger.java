@@ -1,11 +1,10 @@
 package com.github.rinfield.app.thread;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.github.rinfield.app.log.AppLogger;
+import com.github.rinfield.app.log.AppLogs;
 
 public class PeriodicBeatLogger implements Runnable {
-    private static final Logger log = LoggerFactory
-        .getLogger(PeriodicBeatLogger.class);
+    private static final AppLogger log = AppLogger.of(PeriodicBeatLogger.class);
 
     public static final int INTERVAL = 20_000;
 
@@ -19,11 +18,12 @@ public class PeriodicBeatLogger implements Runnable {
     public void run() {
         try {
             while (true) {
-                log.info(prefix + ": ping!");
+                log.write(AppLogs.HEART_BEAT, prefix + ": ping!");
                 Thread.sleep(INTERVAL);
             }
         } catch (final InterruptedException ie) {
-            log.info(prefix + ": interrupted. terminate loop.");
+            log.write(AppLogs.HEART_BEAT_END, prefix
+                + ": interrupted. terminate loop.");
         }
     }
 }

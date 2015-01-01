@@ -5,23 +5,24 @@ import javax.annotation.PreDestroy;
 
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.jvnet.hk2.annotations.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.github.rinfield.app.log.AppLogger;
+import com.github.rinfield.app.log.AppLogs;
 
 @Service
 @RequestScoped
 public class RequestScopedService {
 
-    private static final Logger log = LoggerFactory
-        .getLogger(RequestScopedService.class);
+    private static final AppLogger log = AppLogger
+        .of(RequestScopedService.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.info("@PostConstruct: " + this);
+        log.write(AppLogs.POST_CONSTRUCT, this);
     }
 
     @PreDestroy
     public void preDestroy() {
-        log.info("@PreDestroy: " + this);
+        log.write(AppLogs.PRE_DESTROY, this);
     }
 }

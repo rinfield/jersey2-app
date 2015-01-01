@@ -10,15 +10,15 @@ import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.github.rinfield.app.log.AppLogger;
+import com.github.rinfield.app.log.AppLogs;
 
 @Provider
 @PreMatching
 public class AuthorizationRequestFilter implements ContainerRequestFilter {
 
-    private static final Logger log = LoggerFactory
-        .getLogger(AuthorizationRequestFilter.class);
+    private static final AppLogger log = AppLogger
+        .of(AuthorizationRequestFilter.class);
 
     @Override
     public void filter(final ContainerRequestContext requestContext)
@@ -27,7 +27,7 @@ public class AuthorizationRequestFilter implements ContainerRequestFilter {
             requestContext.getUriInfo().getQueryParameters().get("user"))
             .flatMap(x -> x.stream().findFirst());
         final String id = idOption.orElse(null);
-        log.info(String.format("request user: %s", id));
+        log.write(AppLogs.REQUESTED_USER_ID, id);
         requestContext.setSecurityContext(new SimpleSecurityContext(id,
             requestContext.getSecurityContext()));
     }
