@@ -3,9 +3,10 @@ package com.github.rinfield;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.glassfish.hk2.utilities.ClasspathDescriptorFileFinder;
 
@@ -14,12 +15,14 @@ public class ClasspathDescriptorFileFinderFix extends
 
     @Override
     public List<InputStream> findDescriptorFiles() throws IOException {
-        final List<InputStream> res = new ArrayList<>();
-        final Enumeration<URL> es = this.getClass().getClassLoader()
+        final Enumeration<URL> urls = this.getClass().getClassLoader()
             .getResources("hk2-locator/default");
-        while (es.hasMoreElements()) {
-            res.add(es.nextElement().openStream());
-        }
-        return res;
+        return Collections.list(urls).stream().map(x -> {
+            try {
+                return x.openStream();
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).collect(Collectors.toList());
     }
 }
