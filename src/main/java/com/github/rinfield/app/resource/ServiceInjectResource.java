@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.github.rinfield.app.log.AppLogger;
 import com.github.rinfield.app.log.AppLogs;
+import com.github.rinfield.app.service.ImmediateService;
 import com.github.rinfield.app.service.PerLookupService;
 import com.github.rinfield.app.service.PerThreadService;
 import com.github.rinfield.app.service.RequestScopedService;
@@ -32,13 +33,15 @@ public class ServiceInjectResource extends AbstractResource {
     private RequestScopedService requestScopedService;
     @Inject
     private SingletonService singletonService;
+    @Inject
+    private ImmediateService immediateService;
 
     @GET
     public Response get() {
         final List<String> res = Arrays
             .asList(perLookupService, perThreadService, requestScopedService,
-                singletonService).stream().map(Objects::toString)
-            .collect(Collectors.toList());
+                singletonService, immediateService).stream()
+            .map(Objects::toString).collect(Collectors.toList());
 
         log.write(AppLogs.SEVICE_INJECTED,
             locator.getService(PerLookupService.class));
@@ -48,6 +51,8 @@ public class ServiceInjectResource extends AbstractResource {
             locator.getService(RequestScopedService.class));
         log.write(AppLogs.SEVICE_INJECTED,
             locator.getService(SingletonService.class));
+        log.write(AppLogs.SEVICE_INJECTED,
+            locator.getService(ImmediateService.class));
 
         return Response.ok(res).build();
     }

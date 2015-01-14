@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import javax.ws.rs.ApplicationPath;
 
 import org.glassfish.hk2.api.DynamicConfigurationService;
+import org.glassfish.hk2.api.ServiceLocator;
+import org.glassfish.hk2.utilities.ServiceLocatorUtilities;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
@@ -20,8 +22,10 @@ public class MyApplication extends ResourceConfig {
     private static final AppLogger log = AppLogger.of(MyApplication.class);
 
     @Inject
-    public MyApplication(final DynamicConfigurationService dynamicConf)
-        throws Exception {
+    public MyApplication(final ServiceLocator locator,
+        final DynamicConfigurationService dynamicConf) throws Exception {
+        ServiceLocatorUtilities.enableImmediateScope(locator);
+
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
 
